@@ -2,24 +2,31 @@ import React from "react"
 import { useEffect } from "react"
 import { useState } from "react"
 
-const Rocket = () => {
-  const [position, setPosition] = useState(0)
+const Rocket = ({ boardWidth }) => {
+  const [position, setPosition] = useState(50)
+  const ROCKET_WIDTH = 56
+  const MOVE_STEP = 15
+
+  const minPosition = 5
+  const maxPosition = 95
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "ArrowLeft") {
-        setPosition(position - 10)
-        console.log("ArrowLeft")
-      } else if (event.key === "ArrowRight") {
-        setPosition(position + 10)
-        console.log("ArrowRight")
+      switch (event.key) {
+        case "ArrowLeft":
+          setPosition((prev) => Math.max(minPosition, prev - MOVE_STEP))
+          break
+        case "ArrowRight":
+          setPosition((prev) => Math.min(maxPosition, prev + MOVE_STEP))
+          break
+        default:
+          break
       }
     }
+
     window.addEventListener("keydown", handleKeyPress)
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress)
-    }
-  }, [position])
+    return () => window.removeEventListener("keydown", handleKeyPress)
+  }, [minPosition, maxPosition])
 
   return (
     <img
