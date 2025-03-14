@@ -2,6 +2,7 @@ import { useState } from "react"
 import Rocket from "./Rocket"
 import { useRef } from "react"
 import { useEffect } from "react"
+import Asteroids from "./Asteroids"
 
 const GameBoard = () => {
   const boardRef = useRef(null)
@@ -26,6 +27,7 @@ const GameBoard = () => {
       <div className="h-10 w-1/4 m-[10px] absolute top-0 right-0 bg-amber-300 text-black font-bold flex justify-center items-center leading-none">
         <span>Score: KM</span>
       </div>
+      <Asteroids />
       <Rocket boardWidth={boardWidth} />
     </div>
   )
